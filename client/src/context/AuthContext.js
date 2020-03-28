@@ -12,6 +12,7 @@ const AuthContextProvider = (props) => {
     }
 
     const logOut = () => {
+        window.localStorage.removeItem("currentUrl");
         window.localStorage.removeItem("authData");
         setUser({ isLoggedIn: false, data: null })
     }

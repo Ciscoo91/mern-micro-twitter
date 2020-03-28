@@ -6,6 +6,17 @@ const EditTwitt = ({ message }) => {
     const { user } = useContext(AuthContext);
     const [tweet, setTweet] = useState("");
 
+
+    // const deleteMessage = async (id) => {
+    //     const res = await fetch(`/message/message/${id}`, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     });
+    //     const jsonResponse = await res.json();
+    // }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(message);
@@ -28,7 +39,7 @@ const EditTwitt = ({ message }) => {
 
     return (
         <Fragment>
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
+            <button type="button" className="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
 
             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
@@ -49,7 +60,7 @@ const EditTwitt = ({ message }) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Send message</button>
+                            {/* <button type="button" className="btn btn-primary" onClick={deleteMessage(message._id)}>Delete message</button> */}
                         </div>
                     </div>
                 </div>
