@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+// import { v4 as uuidv4 } from 'uuid'
 import axios from 'axios'
 
 
@@ -15,7 +15,7 @@ const Avatar = ({ id }) => {
         // const v4name = splitedName.join('.');
         // console.log(v4name);
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('avatar', file);
 
         const response = await axios.post('/avatar/upload', formData, {
             headers: {
@@ -23,8 +23,6 @@ const Avatar = ({ id }) => {
             }
         });
 
-        const jsonResponse = await response.json();
-        console.log(jsonResponse);
     }
 
     return (
