@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fileUpload = require('express-fileupload');
+const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -24,6 +25,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload({
   createParentPath: true
 }));
+
+mongoose.connect("mongodb://localhost:27042/test", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Connected..")
+  }).catch(err => {
+    console.log('Caught: ', err.stack)
+  });
 
 // cors handler
 app.use(function (req, res, next) {

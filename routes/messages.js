@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Message = require('../model/messagesSchema');
 const verifyToken = require('../middlewares/tokenMiddleware');
 
-mongoose.connect("mongodb://localhost:27042/test", { useNewUrlParser: true, useUnifiedTopology: true });
+
 // mongoose.connect("mongodb://Ciscoo91:maravilhaC2!@ds343718.mlab.com:43718/mern-twitter", { useNewUrlParser: true, useUnifiedTopology: true })
 //     .then(
 //     () => {
@@ -64,7 +64,6 @@ router.put('/update/:id', (req, res) => {
         res.send(message);
     })
 });
-
 
 
 module.exports = router;
