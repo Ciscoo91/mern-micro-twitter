@@ -21,6 +21,9 @@ const myUser = new Schema({
 
             message: "This is not a valid email"
         }
+    },
+    avatar_url: {
+        type: String,
     }
 }, {
     collection: "Member",

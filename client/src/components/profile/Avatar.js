@@ -12,7 +12,6 @@ const Avatar = ({ id }) => {
 
 
     const handleChange = (e) => {
-        e.preventDefault();
 
         const file = e.target.files[0];
         console.log(file);
@@ -53,30 +52,16 @@ const Avatar = ({ id }) => {
                         console.log(url)
                         setImageUrl(url);
                         setProgress(0);
+                        const response = axios.post('/avatar/upload', {
+                            body: {
+
+                            }
+                        });
                     });
             });
         } else {
             setError("Error please choose an image to upload");
         }
-    }
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(image);
-        // const splitedName = file.name.split('.');
-        // splitedName[0] = uuidv4();
-        // const v4name = splitedName.join('.');
-        // console.log(v4name);
-        const formData = new FormData();
-        formData.append('avatar', image);
-
-        const response = await axios.post('/avatar/upload', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-
     }
 
     return (

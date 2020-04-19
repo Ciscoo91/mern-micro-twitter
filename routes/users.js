@@ -99,4 +99,11 @@ router.put('/update/:id', (req, res) => {
 
 });
 
+router.put('/upload', (req, res) => {
+  Member.findByIdAndUpdate(req.body.id, { avatar_url: req.body.image_url }, { new: true }, (err, user) => {
+    if (err) throw err;
+    res.send(user);
+  })
+});
+
 module.exports = router;

@@ -23,8 +23,12 @@ const App = () => {
 
   useEffect(() => {
     const currentUrl = localStorage.getItem('currentUrl')
-    console.log(currentUrl);
-    history.push(currentUrl);
+    // console.log(currentUrl);
+    if (currentUrl == null) {
+      history.push('/')
+    } else {
+      history.push(currentUrl);
+    }
   }, [])
 
   useEffect(() => {
