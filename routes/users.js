@@ -100,9 +100,14 @@ router.put('/update/:id', (req, res) => {
 });
 
 router.put('/upload', (req, res) => {
-  Member.findByIdAndUpdate(req.body.id, { avatar_url: req.body.image_url }, { new: true }, (err, user) => {
+  console.log("image to upload req: ", req.body);
+  const avatar_url = req.body.image_url;
+  const id = req.body.id;
+  console.log(id);
+  console.log(avatar_url);
+  Member.findByIdAndUpdate(id, { avatar_url }, { new: true }, (err, user) => {
     if (err) throw err;
-    res.send(user);
+    res.json(user);
   })
 });
 

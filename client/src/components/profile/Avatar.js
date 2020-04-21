@@ -7,8 +7,8 @@ const Avatar = ({ id }) => {
 
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
-    const [progress, setProgress] = useState(null);
-    const [error, setError] = useState("");
+    const [progress, setProgress] = useState(0);
+    const [error, setError] = useState(null);
 
 
     const handleChange = (e) => {
@@ -26,6 +26,15 @@ const Avatar = ({ id }) => {
             }
 
         }
+    }
+
+    const updateUser = async (user_id, image_url) => {
+        const response = await axios.put('/users/upload', {
+            id: id,
+            image_url: imageUrl,
+        });
+        // const JsonResponse = await response.json();
+        console.log(response, typeof response);
     }
 
     const handleUpload = (e) => {
@@ -52,11 +61,7 @@ const Avatar = ({ id }) => {
                         console.log(url)
                         setImageUrl(url);
                         setProgress(0);
-                        const response = axios.post('/avatar/upload', {
-                            body: {
-
-                            }
-                        });
+                        updateUser(id, imageUrl)
                     });
             });
         } else {
@@ -66,12 +71,18 @@ const Avatar = ({ id }) => {
 
     return (
         <Fragment>
+            {error && (
+                <div class="alert alert-danger" role="alert">
+                    {error}
+                </div>
+            )}
             <form className="col-6">
                 <div className="form-group">
                     <label htmlFor="exampleFormControlFile1">Example file input</label>
                     <input type="file" className="form-control-file mb-2" id="exampleFormControlFile1" onChange={handleChange} />
                     <button onClick={handleUpload} className="btn btn-sm btn-primary">Upload</button>
                 </div>
+                {progress > 0 ? <progress id="file" max="100" value={progress}> {progress}% </progress> : null}
             </form>
         </Fragment>
     );

@@ -24,6 +24,7 @@ const myUser = new Schema({
     },
     avatar_url: {
         type: String,
+        default: ""
     }
 }, {
     collection: "Member",
