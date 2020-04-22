@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { SubscribeContext } from '../../context/SubscribeContext';
 // import axios from 'axios';
 
 export default function Users() {
 
     const [users, setUsers] = useState([])
+    const { subscribe } = useContext(SubscribeContext);
 
     const queryUsers = () => {
         fetch("/users").then(res => {
@@ -35,6 +37,7 @@ export default function Users() {
                                 <tr key={user._id}>
                                     <td><Link to={`/profile/${user._id}`}>{user.username}</Link></td>
                                     <td>{user.email}</td>
+                                    <td><button className="btn btn-primary" onClick={subscribe(user._id)}>Subscribe</button></td>
                                 </tr>
                             )
                         })

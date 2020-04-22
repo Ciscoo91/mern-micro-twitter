@@ -25,6 +25,9 @@ const myUser = new Schema({
     avatar_url: {
         type: String,
         default: ""
+    },
+    follow: {
+        type: [String]
     }
 }, {
     collection: "Member",
