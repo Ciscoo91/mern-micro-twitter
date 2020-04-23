@@ -26,9 +26,7 @@ const myUser = new Schema({
         type: String,
         default: ""
     },
-    follow: {
-        type: [String]
-    }
+    follow: [String]
 }, {
     collection: "Member",
     usePushEach: true

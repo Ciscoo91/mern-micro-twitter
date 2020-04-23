@@ -15,7 +15,6 @@ const TwitCard = ({ message }) => {
     const fetchAvatar = async (id) => {
         const response = await axios.get(`/avatar/${id}`);
         setImageUrl(response.data[0].avatar_url);
-        console.log(response);
     }
 
     useEffect(() => {

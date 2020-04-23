@@ -6,7 +6,7 @@ import { SubscribeContext } from '../../context/SubscribeContext';
 export default function Users() {
 
     const [users, setUsers] = useState([])
-    const { subscribe } = useContext(SubscribeContext);
+    const { follow } = useContext(SubscribeContext);
 
     const queryUsers = () => {
         fetch("/users").then(res => {
@@ -22,11 +22,13 @@ export default function Users() {
 
     return (
         <div className="container mt-4">
-            <table className="table table-striped">
+            <table className="table table-striped bg-light">
                 <thead>
                     <tr>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>Subscribe</th>
+                        <th>id</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +39,8 @@ export default function Users() {
                                 <tr key={user._id}>
                                     <td><Link to={`/profile/${user._id}`}>{user.username}</Link></td>
                                     <td>{user.email}</td>
-                                    <td><button className="btn btn-primary" onClick={subscribe(user._id)}>Subscribe</button></td>
+                                    <td><button className="btn btn-primary btn-sm" onClick={() => follow(user._id)}>Subscribe</button></td>
+                                    <td>{user._id}</td>
                                 </tr>
                             )
                         })

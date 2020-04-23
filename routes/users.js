@@ -111,4 +111,21 @@ router.put('/upload', (req, res) => {
   })
 });
 
+
+router.get('/subscribes/:id', (req, res) => {
+  Member.findById(req.params.id, (err, user) => {
+    if (err) throw err;
+    res.json(({ subscribes: user.follow }));
+  })
+})
+
+router.put('/subscribe', (req, res) => {
+  console.log(req.body);
+  Member.findByIdAndUpdate(req.body.id, { follow: req.body.subscribes }, { new: true }, (err, user) => {
+    if (err) throw err;
+    res.json(user)
+      ;
+  })
+})
+
 module.exports = router;
