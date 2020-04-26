@@ -10,6 +10,9 @@ function Subscription() {
     const [usersWithInfo, setUsersWithInfo] = useState([])
     const getSubscribedUsersInfo = () => {
         let usersArray = [];
+        if (subscribes == null) {
+            return;
+        }
         usersArray = subscribes.map(async (userId) => {
             const response = await fetch(`/users/profile/${userId}`)
             const jsonRes = await response.json();
@@ -48,9 +51,9 @@ function Subscription() {
                 <tbody>
                     {
 
-                        usersWithInfo.map((user) => {
+                        usersWithInfo.map((user, index) => {
                             return (
-                                <tr key={user._id}>
+                                <tr key={index}>
                                     <td><Link to={`/profile/${user._id}`}>{user.username}</Link></td>
                                     <td>{user.email}</td>
                                     <td><button className="btn btn-danger btn-sm" onClick={() => unFollow(user._id)}>unSubscribe</button></td>

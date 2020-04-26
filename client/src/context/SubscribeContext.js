@@ -7,7 +7,12 @@ const SubscribeContextProvider = (props) => {
     const [subscribes, setSubscribes] = useState([]);
 
     const follow = (id) => {
-        setSubscribes(prevState => [...prevState, id]);
+        if (subscribes.includes(id)) {
+            return true;
+        } else {
+            setSubscribes(prevState => [...prevState, id]);
+
+        }
     }
 
     const unFollow = (id) => {
@@ -17,13 +22,19 @@ const SubscribeContextProvider = (props) => {
     }
 
     const getIdOfCurrentUser = () => {
-        const authData = JSON.parse(localStorage.getItem("authData"))
+        const authData = JSON.parse(localStorage.getItem("authData"));
+        if (authData === null) {
+            return null;
+        }
         const id = authData.user.id;
         return id;
     }
 
     const putSubscribes = async () => {
         const id = getIdOfCurrentUser();
+        if (id === null) {
+            return;
+        }
         const response = await fetch(`/users/subscribe`, {
             method: "PUT",
             headers: { 'Content-Type': 'application/json' },
@@ -37,6 +48,13 @@ const SubscribeContextProvider = (props) => {
         const id = getIdOfCurrentUser();
         const response = await fetch(`users/subscribes/${id}`);
         const resJson = await response.json();
+
+        console.log(resJson);
+
+        if (resJson.subscribes === null) {
+            setSubscribes([]);
+            return true;
+        }
         setSubscribes(resJson.subscribes)
         console.log(resJson);
     }
