@@ -8,10 +8,9 @@ const SubscribeContextProvider = (props) => {
 
     const follow = (id) => {
         if (subscribes.includes(id)) {
-            return true;
+            return true; //should set an error message to alert
         } else {
             setSubscribes(prevState => [...prevState, id]);
-
         }
     }
 
@@ -49,14 +48,14 @@ const SubscribeContextProvider = (props) => {
         const response = await fetch(`users/subscribes/${id}`);
         const resJson = await response.json();
 
-        console.log(resJson);
+        // console.log(resJson);
 
         if (resJson.subscribes === null) {
             setSubscribes([]);
             return true;
         }
         setSubscribes(resJson.subscribes)
-        console.log(resJson);
+        // console.log(resJson);
     }
 
     useEffect(() => {

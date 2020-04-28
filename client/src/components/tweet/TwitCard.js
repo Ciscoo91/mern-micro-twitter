@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, Fragment } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext'
@@ -7,6 +7,29 @@ import boy from '../icons/boy.svg';
 import girl from '../icons/girl.svg';
 import man from '../icons/man.svg';
 import moment from 'moment'
+
+
+export const seekHashtag = (message) => {
+
+    const arrayMessage = message.split(' ');
+
+    if (arrayMessage.includes('#myhashtag')) {
+
+        let indexOfHashtag = arrayMessage.indexOf("#myhashtag");
+        let first = arrayMessage.splice(0, indexOfHashtag);
+        let second = arrayMessage.splice(indexOfHashtag + 1)
+        let firstString = first.join(' ');
+        let secondString = second.join(' ');
+        return (
+            <Fragment>
+                {firstString} <Link className="text-warning" to="/myhashtag">#myhashtag</Link> {secondString}
+            </Fragment>
+        )
+    }
+
+    return message;
+}
+
 
 const TwitCard = ({ message }) => {
 
@@ -32,7 +55,7 @@ const TwitCard = ({ message }) => {
                 {imageUrl ? (<img src={imageUrl} alt="profile_picture" style={{ "width": "64px", "height": "64px" }} />) : (<img src={randomElement} style={{ "width": "64px", "height": "64px" }} className="mr-3" alt="" />)}
                 <div className="media-body">
                     <h5 className="mt-0 text-warning"><Link className="text-warning" to={`/profile/${message.author_id}`}> {message.author}</Link></h5>
-                    <p>{message.message}</p>
+                    <p>{seekHashtag(message.message)}</p>
                     <p className="font-weight-lighter">{moment(message.created_at).format('DD-MM-YYYY')}</p>
                     {user.data.user.id === message.author_id ? <EditTwitt message={message} /> : null}
                 </div>

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom'
-// import "bootstrap/dist/css/bootstrap.min.css";
 import LoginForm from './components/auth/LoginForm';
 import RegisterUser from './components/auth/RegisterUser';
 import Navbar from './components/layout/Navbar'
@@ -13,6 +12,7 @@ import Profile from './components/profile/Profile';
 import AuthContextProvider from './context/AuthContext';
 import Home from './components/layout/Home';
 import SubscribeContextProvider from './context/SubscribeContext';
+import MyHashtag from './components/tweet/MyHashtag';
 
 
 
@@ -52,6 +52,7 @@ const App = () => {
               <PrivateRoute path="/users" component={Users} />
               <PrivateRoute path="/feed" component={Feed} />
               <PrivateRoute path="/profile/:id" component={Profile} />
+              <PrivateRoute path="/myhashtag" component={MyHashtag} />
               <Route path="/logout" component={LogoutPage} />
             </Switch>
           </div>
