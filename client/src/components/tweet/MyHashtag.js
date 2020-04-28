@@ -24,16 +24,22 @@ const MyHashtag = () => {
     useEffect(() => {
         fetchMsg();
 
-        setFilteredMessage(messages.filter(message => {
-            filterMessageByHashtag(message);
-        }));
 
     }, []);
+
+    useEffect(() => {
+        const filter = messages.filter(message => {
+            let filtered = filterMessageByHashtag(message);
+            return filtered;
+        });
+        setFilteredMessage(filter);
+
+    }, [messages])
 
     return (
         <Fragment>
             <div>
-                {filteredMessage.map(message => <TwitCard message={message} />)}
+                {filteredMessage.map(message => <TwitCard key={message._id} message={message} />)}
             </div>
         </Fragment>
     );

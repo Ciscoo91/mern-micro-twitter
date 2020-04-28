@@ -41,6 +41,7 @@ const SubscribeContextProvider = (props) => {
         })
 
         const resJson = await response.json();
+        // console.log(resJson);
     }
 
     const getSubscribes = async () => {
