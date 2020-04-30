@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import userImg from './userImg.svg';
+// import userImg from './userImg.svg';
 
 const ProfileCard = ({ user }) => {
     return (
@@ -7,7 +7,7 @@ const ProfileCard = ({ user }) => {
             <div className="card mb-3" style={{ "maxWidth": "540px" }}>
                 <div className="row no-gutters">
                     <div className="col-md-4">
-                        <img src={userImg} className="card-img" alt="..." />
+                        <img src={user.avatar_url} className="card-img" alt="profile_picture" />
                     </div>
                     <div className="col-md-8">
                         <div className="card-body">

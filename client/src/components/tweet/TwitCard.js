@@ -37,6 +37,15 @@ const TwitCard = ({ message }) => {
         setImageUrl(response.data[0].avatar_url);
     }
 
+    const deleteMessage = async (id) => {
+        const response = await fetch(`/messages/message/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
     useEffect(() => {
         fetchAvatar(message.author_id);
     })
@@ -45,14 +54,13 @@ const TwitCard = ({ message }) => {
     return (
         <div className="row mt-4 bg-info text-light">
             <div className="media p-3">
-                {/* <img src="https://via.placeholder.com/64" className="mr-3" alt="" /> */}
-                {/* <img src={randomElement} style={{ "width": "64px", "height": "64px" }} className="mr-3" alt="" /> */}
                 {imageUrl ? (<img src={imageUrl} alt="profile_picture" style={{ "width": "64px", "height": "64px" }} className="mr-3" />) : (<img src="https://via.placeholder.com/64" style={{ "width": "64px", "height": "64px" }} className="mr-3" alt="" />)}
                 <div className="media-body">
                     <h5 className="mt-0 text-warning"><Link className="text-warning" to={`/profile/${message.author_id}`}> {message.author}</Link></h5>
                     <p>{seekHashtag(message.message)}</p>
                     <p className="font-weight-lighter">{moment(message.created_at).format('DD-MM-YYYY')}</p>
                     {user.data.user.id === message.author_id ? <EditTwitt message={message} /> : null}
+                    {user.data.user.id === message.author_id ? <button className="btn btn-danger btn-sm ml-2" onClick={() => deleteMessage(message._id)}>Delete</button> : null}
                 </div>
             </div>
         </div>

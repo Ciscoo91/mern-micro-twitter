@@ -17,24 +17,28 @@ function Subscription() {
             const response = await fetch(`/users/profile/${userId}`)
             const jsonRes = await response.json();
             console.log(jsonRes);
+            return jsonRes;
         })
+        setUsersWithInfo(prevState => [...prevState, usersArray])
     }
     const getSubscribes = async () => {
         const id = getIdOfCurrentUser();
         const response = await fetch(`/users/subscribes/${id}`);
         const resJson = await response.json();
         setSubscribes(resJson.subscribes)
-        // console.log(resJson);
-        setUsersWithInfo(prevState => [...prevState, resJson])
+        console.log(resJson);
+    }
+
+    const getUsers = async () => {
+        let getSub = await getSubscribes();
+        let setUsersInfo = await getSubscribedUsersInfo();
     }
 
     useEffect(() => {
-        getSubscribes();
+        getUsers();
     }, [])
 
-    useEffect(() => {
-        getSubscribedUsersInfo();
-    }, [subscribes])
+
 
 
     return (
@@ -49,6 +53,7 @@ function Subscription() {
                     </tr>
                 </thead>
                 <tbody>
+                    {console.log(usersWithInfo)}
                     {
 
                         usersWithInfo.map((user, index) => {

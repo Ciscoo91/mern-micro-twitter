@@ -41,7 +41,6 @@ const Avatar = ({ id }) => {
         e.preventDefault();
         if (image) {
             const uploadTask = storage.ref(`images/${image.name}`).put(image)
-            console.log(uploadTask);
 
             uploadTask.on('state_changed', snapshot => {
                 const progress = Math.round(
@@ -58,11 +57,13 @@ const Avatar = ({ id }) => {
                     .child(image.name)
                     .getDownloadURL()
                     .then(url => {
-                        console.log(url)
+                        // console.log(url)
                         setImageUrl(url);
                         setProgress(0);
+                    })
+                    .then(
                         updateUser(id, imageUrl)
-                    });
+                    );
             });
         } else {
             setError("Error please choose an image to upload");
