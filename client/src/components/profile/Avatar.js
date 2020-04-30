@@ -7,12 +7,11 @@ const Avatar = ({ id }) => {
 
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
-    const [progress, setProgress] = useState(null);
-    const [error, setError] = useState("");
+    const [progress, setProgress] = useState(0);
+    const [error, setError] = useState(null);
 
 
     const handleChange = (e) => {
-        e.preventDefault();
 
         const file = e.target.files[0];
         console.log(file);
@@ -29,11 +28,19 @@ const Avatar = ({ id }) => {
         }
     }
 
+    const updateUser = async (user_id, image_url) => {
+        const response = await axios.put('/users/upload', {
+            id: id,
+            image_url: imageUrl,
+        });
+        // const JsonResponse = await response.json();
+        console.log(response, typeof response);
+    }
+
     const handleUpload = (e) => {
         e.preventDefault();
         if (image) {
             const uploadTask = storage.ref(`images/${image.name}`).put(image)
-            console.log(uploadTask);
 
             uploadTask.on('state_changed', snapshot => {
                 const progress = Math.round(
@@ -50,43 +57,33 @@ const Avatar = ({ id }) => {
                     .child(image.name)
                     .getDownloadURL()
                     .then(url => {
-                        console.log(url)
+                        // console.log(url)
                         setImageUrl(url);
                         setProgress(0);
-                    });
+                    })
+                    .then(
+                        updateUser(id, imageUrl)
+                    );
             });
         } else {
             setError("Error please choose an image to upload");
         }
     }
 
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(image);
-        // const splitedName = file.name.split('.');
-        // splitedName[0] = uuidv4();
-        // const v4name = splitedName.join('.');
-        // console.log(v4name);
-        const formData = new FormData();
-        formData.append('avatar', image);
-
-        const response = await axios.post('/avatar/upload', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-
-    }
-
     return (
         <Fragment>
+            {error && (
+                <div class="alert alert-danger" role="alert">
+                    {error}
+                </div>
+            )}
             <form className="col-6">
                 <div className="form-group">
                     <label htmlFor="exampleFormControlFile1">Example file input</label>
                     <input type="file" className="form-control-file mb-2" id="exampleFormControlFile1" onChange={handleChange} />
                     <button onClick={handleUpload} className="btn btn-sm btn-primary">Upload</button>
                 </div>
+                {progress > 0 ? <progress id="file" max="100" value={progress}> {progress}% </progress> : null}
             </form>
         </Fragment>
     );

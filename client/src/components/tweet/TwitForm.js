@@ -14,11 +14,11 @@ const TwitForm = () => {
         e.preventDefault();
         let author = user.data.user.username;
         let author_id = user.data.user.id;
-        console.log(value.length);
+        // console.log(value.length);
         if (value.length > 140) {
             setError({ error: true, errorMessage: "Your post if too long, it can't contain more than 140 characters" })
         } else {
-            console.log("n'est pas rentrée dans la condition précédente");
+            // console.log("n'est pas rentrée dans la condition précédente");
             setError({ error: false, errorMessage: "" })
             axios.post('/messages/message', {
                 message: value,

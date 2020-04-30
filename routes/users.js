@@ -96,4 +96,33 @@ router.put('/update/:id', (req, res) => {
 
 });
 
+router.put('/upload', (req, res) => {
+  console.log("image to upload req: ", req.body);
+  const avatar_url = req.body.image_url;
+  const id = req.body.id;
+  console.log(id);
+  console.log(avatar_url);
+  Member.findByIdAndUpdate(id, { avatar_url }, { new: true }, (err, user) => {
+    if (err) throw err;
+    res.json(user);
+  })
+});
+
+
+router.get('/subscribes/:id', (req, res) => {
+  Member.findById(req.params.id, (err, user) => {
+    if (err) throw err;
+    res.json(({ subscribes: user.follow }));
+  })
+})
+
+router.put('/subscribe', (req, res) => {
+  console.log(req.body);
+  Member.findByIdAndUpdate(req.body.id, { follow: req.body.subscribes }, { new: true }, (err, user) => {
+    if (err) throw err;
+    res.json(user)
+      ;
+  })
+})
+
 module.exports = router;

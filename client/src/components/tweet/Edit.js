@@ -53,7 +53,7 @@ const EditTwitt = ({ message }) => {
                         <div className="modal-body">
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group">
-                                    <input type="text" className="form-control" id="recipient-name" onChange={(e) => setTweet(e.target.value)} />
+                                    <input type="text" className="form-control" onChange={(e) => setTweet(e.target.value)} />
                                 </div>
                                 <input type="submit" className="btn btn-primary" value="Edit" />
                             </form>

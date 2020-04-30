@@ -2,7 +2,6 @@ import React, { useState, createContext, useEffect } from 'react';
 
 export const AuthContext = createContext();
 
-
 const AuthContextProvider = (props) => {
 
     const [user, setUser] = useState({ isLoggedIn: false, data: null });
