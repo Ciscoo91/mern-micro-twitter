@@ -17,7 +17,7 @@ export default function Users() {
     }
 
     useEffect(() => {
-        queryUsers()
+        queryUsers();
     }, [])
 
     return (

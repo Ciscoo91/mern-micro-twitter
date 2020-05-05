@@ -28,7 +28,7 @@ router.get('/profile/:id', (req, res) => {
 
 router.post('/register', function (req, res, next) {
 
-  console.log(req.body);
+  // console.log(req.body);
   let username = req.body.username;
   let password = req.body.password;
   let password_confirm = req.body.password_confirm;
@@ -44,7 +44,7 @@ router.post('/register', function (req, res, next) {
     });
     user.save((err, data) => {
       if (err) throw err;
-      console.log('User registered successfully')
+      // console.log('User registered successfully')
       res.send(data)
     })
   }
@@ -67,11 +67,12 @@ router.post("/login", (req, res) => {
       const username = user[0].username;
       const email = user[0].email;
       const id = user[0]._id;
+      const subscribes = user[0].follow;
       jwt.sign({ id, username, email }, secretKey, (err, token) => {
         if (err) throw err;
 
         res.send({
-          user: { id, username, email },
+          user: { id, username, email, subscribes },
           token
         });
       });
@@ -81,7 +82,7 @@ router.post("/login", (req, res) => {
 
 router.put('/update/:id', (req, res) => {
 
-  console.log(req.body);
+  // console.log(req.body);
   const username = req.body.username;
   const password = req.body.password;
   const password_confirm = req.body.password_confirm;
@@ -103,8 +104,8 @@ router.put('/upload', (req, res) => {
   console.log("image to upload req: ", req.body);
   const avatar_url = req.body.image_url;
   const id = req.body.id;
-  console.log(id);
-  console.log(avatar_url);
+  // console.log(id);
+  // console.log(avatar_url);
   Member.findByIdAndUpdate(id, { avatar_url }, { new: true }, (err, user) => {
     if (err) throw err;
     res.json(user);
@@ -112,15 +113,18 @@ router.put('/upload', (req, res) => {
 });
 
 
-router.get('/subscribes/:id', (req, res) => {
-  Member.findById(req.params.id, (err, user) => {
+router.get('/subscribes/:id', async (req, res) => {
+  let result = [];
+  const user = await Member.findById(req.params.id, (err, user) => {
     if (err) throw err;
-    res.json(({ subscribes: user.follow }));
-  })
-})
+  });
+
+  res.send(user.follow);
+});
+
 
 router.put('/subscribe', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   Member.findByIdAndUpdate(req.body.id, { follow: req.body.subscribes }, { new: true }, (err, user) => {
     if (err) throw err;
     res.json(user)

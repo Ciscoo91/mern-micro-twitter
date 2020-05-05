@@ -58,7 +58,6 @@ router.delete('/message/:id', (req, res) => {
 
 router.put('/update/:id', (req, res) => {
 
-    // console.log(req.body);
     Message.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, message) => {
         if (err) throw err;
         res.send(message);

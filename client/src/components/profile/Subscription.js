@@ -6,39 +6,42 @@ import { SubscribeContext } from '../../context/SubscribeContext';
 function Subscription() {
 
     const { unFollow, getIdOfCurrentUser } = useContext(SubscribeContext);
-    const [subscribes, setSubscribes] = useState([]);
     const [usersWithInfo, setUsersWithInfo] = useState([])
-    const getSubscribedUsersInfo = () => {
-        let usersArray = [];
-        if (subscribes == null) {
-            return;
-        }
-        usersArray = subscribes.map(async (userId) => {
-            const response = await fetch(`/users/profile/${userId}`)
-            const jsonRes = await response.json();
-            console.log(jsonRes);
-            return jsonRes;
-        })
-        setUsersWithInfo(prevState => [...prevState, usersArray])
+
+
+    const getInfo = async (id) => {
+        const response = await fetch(`/users/profile/${id}`);
+        const resJson = await response.json();
+        setUsersWithInfo(prevState => [...prevState, resJson]);
     }
+
     const getSubscribes = async () => {
         const id = getIdOfCurrentUser();
         const response = await fetch(`/users/subscribes/${id}`);
         const resJson = await response.json();
-        setSubscribes(resJson.subscribes)
         console.log(resJson);
+        resJson.map(userId => getInfo(userId))
     }
 
-    const getUsers = async () => {
-        let getSub = await getSubscribes();
-        let setUsersInfo = await getSubscribedUsersInfo();
-    }
+
+
+
+    // const getSubscribedUsersInfo = async () => {
+
+    //     let listUsersId = await getSubscribes();
+    //     console.log(listUsersId);
+    //     let usersArray = listUsersId.map(async (userId) => {
+    //         const response = await fetch(`/users/profile/${userId}`)
+    //         const jsonRes = await response.json();
+    //         console.log(jsonRes);
+    //         return jsonRes;
+    //     })
+    //     setUsersWithInfo(prevState => [...prevState, usersArray])
+    // }
 
     useEffect(() => {
-        getUsers();
+        getSubscribes();
     }, [])
-
-
 
 
     return (
@@ -53,7 +56,6 @@ function Subscription() {
                     </tr>
                 </thead>
                 <tbody>
-                    {console.log(usersWithInfo)}
                     {
 
                         usersWithInfo.map((user, index) => {
@@ -66,7 +68,6 @@ function Subscription() {
                                 </tr>
                             )
                         })
-
                     }
                 </tbody>
             </table>

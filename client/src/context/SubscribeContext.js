@@ -44,31 +44,30 @@ const SubscribeContextProvider = (props) => {
         // console.log(resJson);
     }
 
-    const getSubscribes = async () => {
-        const id = getIdOfCurrentUser();
-        const response = await fetch(`users/subscribes/${id}`);
-        const resJson = await response.json();
+    // const getSubscribes = async () => {
+    //     const id = getIdOfCurrentUser();
+    //     const response = await fetch(`users/subscribes/${id}`);
+    //     const resJson = await response.json();
+    //     console.log(resJson);
 
-        // console.log(resJson);
+    //     // const authData = JSON.parse(localStorage.getItem('authData'));
+    //     // const usersId = authData.user.subscribes;
 
-        if (resJson.subscribes === null) {
-            setSubscribes([]);
-            return true;
-        }
-        setSubscribes(resJson.subscribes)
-        // console.log(resJson);
-    }
-
-    useEffect(() => {
-        getSubscribes();
-    }, [])
+    //     if (resJson.subscribes === null) {
+    //         setSubscribes([]);
+    //         return true;
+    //     }
+    //     // setSubscribes(usersId);
+    //     setSubscribes(resJson.subscribes);
+    //     // console.log(resJson);
+    // }
 
     useEffect(() => {
         putSubscribes();
     }, [subscribes])
 
     return (
-        <SubscribeContext.Provider value={{ follow, unFollow, getIdOfCurrentUser }}>
+        <SubscribeContext.Provider value={{ follow, unFollow, getIdOfCurrentUser, subscribes }}>
             {props.children}
         </SubscribeContext.Provider>
     );
