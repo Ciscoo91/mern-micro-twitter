@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 
 export const SubscribeContext = createContext();
 
@@ -6,18 +6,19 @@ const SubscribeContextProvider = (props) => {
 
     const [subscribes, setSubscribes] = useState([]);
 
-    const follow = (id) => {
+    const follow = async (id) => {
         if (subscribes.includes(id)) {
             return true; //should set an error message to alert
         } else {
-            setSubscribes(prevState => [...prevState, id]);
+            await setSubscribes(prevState => [...prevState, id]);
+            putSubscribes();
         }
     }
 
-    const unFollow = (id) => {
-        setSubscribes((prevState) => {
-            prevState.filter((sub) => sub !== id)
-        });
+    const unFollow = async (id) => {
+        let newsub = await subscribes.filter(sub => sub !== id)
+        setSubscribes(newsub);
+        putSubscribes();
     }
 
     const getIdOfCurrentUser = () => {
@@ -34,40 +35,26 @@ const SubscribeContextProvider = (props) => {
         if (id === null) {
             return;
         }
-        const response = await fetch(`/users/subscribe`, {
+        await fetch(`/users/subscribe`, {
             method: "PUT",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id, subscribes })
         })
-
-        const resJson = await response.json();
-        // console.log(resJson);
     }
 
-    // const getSubscribes = async () => {
-    //     const id = getIdOfCurrentUser();
-    //     const response = await fetch(`users/subscribes/${id}`);
-    //     const resJson = await response.json();
-    //     console.log(resJson);
-
-    //     // const authData = JSON.parse(localStorage.getItem('authData'));
-    //     // const usersId = authData.user.subscribes;
-
-    //     if (resJson.subscribes === null) {
-    //         setSubscribes([]);
-    //         return true;
-    //     }
-    //     // setSubscribes(usersId);
-    //     setSubscribes(resJson.subscribes);
-    //     // console.log(resJson);
-    // }
+    const getSubscribes = async (id) => {
+        const res = await fetch(`/users/subscribes/${id}`);
+        const json = await res.json();
+        setSubscribes(json);
+    }
 
     useEffect(() => {
-        putSubscribes();
-    }, [subscribes])
+        const id = getIdOfCurrentUser();
+        getSubscribes(id);
+    }, [])
 
     return (
-        <SubscribeContext.Provider value={{ follow, unFollow, getIdOfCurrentUser, subscribes }}>
+        <SubscribeContext.Provider value={{ follow, unFollow, getIdOfCurrentUser }}>
             {props.children}
         </SubscribeContext.Provider>
     );

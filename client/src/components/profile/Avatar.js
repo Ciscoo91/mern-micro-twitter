@@ -57,7 +57,7 @@ const Avatar = ({ id }) => {
                     .child(image.name)
                     .getDownloadURL()
                     .then(url => {
-                        // console.log(url)
+                        console.log(url)
                         setImageUrl(url);
                         setProgress(0);
                     })

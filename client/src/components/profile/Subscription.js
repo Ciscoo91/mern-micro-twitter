@@ -24,21 +24,6 @@ function Subscription() {
     }
 
 
-
-
-    // const getSubscribedUsersInfo = async () => {
-
-    //     let listUsersId = await getSubscribes();
-    //     console.log(listUsersId);
-    //     let usersArray = listUsersId.map(async (userId) => {
-    //         const response = await fetch(`/users/profile/${userId}`)
-    //         const jsonRes = await response.json();
-    //         console.log(jsonRes);
-    //         return jsonRes;
-    //     })
-    //     setUsersWithInfo(prevState => [...prevState, usersArray])
-    // }
-
     useEffect(() => {
         getSubscribes();
     }, [])
@@ -51,7 +36,7 @@ function Subscription() {
                     <tr>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>unSubscribe</th>
+                        <th>Subscription</th>
                         <th>id</th>
                     </tr>
                 </thead>

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Message = require('../model/messagesSchema');
 const verifyToken = require('../middlewares/tokenMiddleware');
 
-mongoose.connect("mongodb://localhost:27042/test", { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect("mongodb://localhost:27042/test", { useNewUrlParser: true, useUnifiedTopology: true });
 // mongoose.connect("mongodb://Ciscoo91:maravilhaC2!@ds343718.mlab.com:43718/mern-twitter", { useNewUrlParser: true, useUnifiedTopology: true })
 //     .then(
 //     () => {
@@ -42,7 +42,7 @@ router.get("/messages", (req, res, next) => {
 });
 
 router.get('/messages/:id', (req, res) => {
-    messageFrom = Message.find({ author_id: req.params.id }, (err, messages) => {
+    Message.find({ author_id: req.params.id }).sort({ created_at: 'desc' }).exec((err, messages) => {
         if (err) throw err;
         // console.log(messages);
         res.json(messages);

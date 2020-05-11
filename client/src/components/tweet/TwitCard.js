@@ -44,6 +44,7 @@ const TwitCard = ({ message }) => {
                 'Content-Type': 'application/json'
             }
         });
+        console.log(response);
     }
 
     useEffect(() => {

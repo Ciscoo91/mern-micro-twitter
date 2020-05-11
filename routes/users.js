@@ -18,6 +18,8 @@ router.get('/', function (req, res, next) {
   });
 });
 
+
+/** GET user by Id */
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
   Member.findById(id, (err, user) => {
@@ -26,9 +28,10 @@ router.get('/profile/:id', (req, res) => {
   });
 });
 
+
+/** Register a new user */
 router.post('/register', function (req, res, next) {
 
-  // console.log(req.body);
   let username = req.body.username;
   let password = req.body.password;
   let password_confirm = req.body.password_confirm;
@@ -51,6 +54,7 @@ router.post('/register', function (req, res, next) {
 
 });
 
+/** Login to the app */
 router.post("/login", (req, res) => {
 
   let login = req.body.username;
@@ -80,6 +84,7 @@ router.post("/login", (req, res) => {
   })
 });
 
+/** UPDATE user */
 router.put('/update/:id', (req, res) => {
 
   // console.log(req.body);
@@ -100,19 +105,18 @@ router.put('/update/:id', (req, res) => {
 
 });
 
+/** UPDATE avatar */
 router.put('/upload', (req, res) => {
   console.log("image to upload req: ", req.body);
   const avatar_url = req.body.image_url;
   const id = req.body.id;
-  // console.log(id);
-  // console.log(avatar_url);
   Member.findByIdAndUpdate(id, { avatar_url }, { new: true }, (err, user) => {
     if (err) throw err;
     res.json(user);
   })
 });
 
-
+/** GET subscribes */
 router.get('/subscribes/:id', async (req, res) => {
   let result = [];
   const user = await Member.findById(req.params.id, (err, user) => {
