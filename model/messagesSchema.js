@@ -26,14 +26,6 @@ const myMessage = new Schema({
     usePushEach: true
 });
 
-myMessage.pre('save', (next) => {
-    const now = Date.now();
-    if (!this.created_at) {
-        this.created_at = now;
-    }
-    next();
-})
-
 const Message = mongoose.model("Message", myMessage);
 
 module.exports = Message;

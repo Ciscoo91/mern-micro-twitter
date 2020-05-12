@@ -8,9 +8,6 @@ const jwt = require("jsonwebtoken");
 const secretKey = process.env.SECRET_KEY;
 const verifyToken = require('../middlewares/tokenMiddleware');
 
-mongoose.connect("mongodb://localhost:27042/test", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
-// mongoose.connect("mongodb://Ciscoo91:maravilhaC2!@ds343718.mlab.com:43718/mern-twitter", { useNewUrlParser: true, useUnifiedTopology: true });
-
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   Member.find({}, (err, user) => {
