@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require("mongoose");
 const Message = require('../model/messagesSchema');
+const Member = require('../model/memberSchema');
 const verifyToken = require('../middlewares/tokenMiddleware');
 
 // mongoose.connect("mongodb://localhost:27042/test", { useNewUrlParser: true, useUnifiedTopology: true });
@@ -46,6 +47,18 @@ router.get('/messages/:id', (req, res) => {
         if (err) throw err;
         // console.log(messages);
         res.json(messages);
+    });
+});
+
+router.get('/feed/:id', (req, res) => {
+
+    Member.findById(req.params.id, (err, user) => {
+        if (err) throw err;
+        let subscribes = [...user.follow, req.params.id];
+        Message.find({ author_id: subscribes }).sort({ created_at: 'desc' }).exec((err, messages) => {
+            if (err) throw err;
+            res.send(messages)
+        })
     });
 });
 

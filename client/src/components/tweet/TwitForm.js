@@ -1,19 +1,20 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import TwitCard from './TwitCard';
+import { SubscribeContext } from '../../context/SubscribeContext';
 
-const TwitForm = () => {
+const TwitForm = ({ user }) => {
 
-    const { user } = useContext(AuthContext)
+    // const { user } = useContext(AuthContext)
     const [value, setValue] = useState("")
     const [messageList, setMessageList] = useState([]);
     const [error, setError] = useState({ error: false, errorMessage: "" });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let author = user.data.user.username;
-        let author_id = user.data.user.id;
+        let author = user.username;
+        let author_id = user.id;
         // console.log(value.length);
         if (value.length > 140) {
             setError({ error: true, errorMessage: "Your post if too long, it can't contain more than 140 characters" })
@@ -40,14 +41,15 @@ const TwitForm = () => {
 
     }
 
+    const fetchMessages = async (id) => {
+        console.log(user);
+        const response = await fetch(`/messages/feed/${id}`)
+        const jsonRes = await response.json();
+        setMessageList(jsonRes);
+    }
+
     useEffect(() => {
-        fetch("/messages/messages")
-            .then(response => response.json())
-            .then(data => {
-                if (data !== undefined) {
-                    setMessageList(data.map(msg => msg))
-                }
-            })
+        fetchMessages(user.id);
     }, [])
 
     return (
@@ -69,9 +71,9 @@ const TwitForm = () => {
             </form>
             <div className="mt-5">
                 <div className="">
-                    {messageList.map(message => {
+                    {messageList ? messageList.map(message => {
                         return <TwitCard key={message._id} message={message} />
-                    })}
+                    }) : null}
                 </div>
             </div>
         </div>

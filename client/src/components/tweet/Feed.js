@@ -5,7 +5,7 @@ import TwitForm from './TwitForm';
 const Feed = () => {
 
     const { user } = useContext(AuthContext);
-    return user.isLoggedIn ? (<TwitForm />) : (<div>You are logged out</div>);
+    return user.isLoggedIn ? (<TwitForm user={user.data.user} />) : (<div>You are logged out</div>);
 }
 
 export default Feed;
