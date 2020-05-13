@@ -26,7 +26,7 @@ app.use(fileUpload({
   createParentPath: true
 }));
 
-mongoose.connect("mongodb://localhost:27042/test", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb://localhost:27042/test", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => {
     console.log("Connected..")
   }).catch(err => {

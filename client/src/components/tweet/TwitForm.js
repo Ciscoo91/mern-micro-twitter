@@ -41,14 +41,19 @@ const TwitForm = ({ user }) => {
 
     }
 
+    const handleInput = (e) => {
+        console.log("value changed");
+        setValue(e.target.value);
+    }
+
     const fetchMessages = async (id) => {
-        console.log(user);
         const response = await fetch(`/messages/feed/${id}`)
         const jsonRes = await response.json();
         setMessageList(jsonRes);
     }
 
     useEffect(() => {
+        console.log("rendered");
         fetchMessages(user.id);
     }, [])
 
@@ -64,7 +69,7 @@ const TwitForm = ({ user }) => {
                         id="exampleFormControlTextarea1"
                         rows="3"
                         value={value}
-                        onChange={(e) => setValue(e.target.value)}>
+                        onChange={handleInput}>
                     </textarea>
                 </div>
                 <button type="submit" className="btn btn-info">Post</button>

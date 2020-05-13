@@ -8,11 +8,11 @@ const SubscribeContextProvider = (props) => {
 
     const follow = async (id) => {
         if (subscribes.includes(id)) {
-            return true; //should set an error message to alert
+            console.log("your allready subscribed to this channel");
         } else {
             await setSubscribes(prevState => [...prevState, id]);
-            putSubscribes();
         }
+        putSubscribes();
     }
 
     const unFollow = async (id) => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { SubscribeContext } from '../../context/SubscribeContext';
-// import axios from 'axios';
 
 export default function Users() {
 
