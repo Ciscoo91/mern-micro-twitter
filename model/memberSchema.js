@@ -18,7 +18,6 @@ const myUser = new Schema({
             validator: (v) => {
                 /[a-zA-Z0-9._%-][a-zA-Z-_%]+@[a-zA-Z0-9._%-]+[a-zA-Z]+\.[a-zA-Z]{2,4}/.test(v)
             },
-
             message: "This is not a valid email"
         }
     },

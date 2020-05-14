@@ -25,7 +25,7 @@ app.use(fileUpload({
   createParentPath: true
 }));
 
-// mongoose.connect("mongodb://localhost:27042/test", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+// mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWORD}@cluster0-ikd7i.gcp.mongodb.net/test?retryWrites=true&w=majority/mern-twitter`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds343718.mlab.com:43718/mern-twitter`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => {
     console.log("Connected..")

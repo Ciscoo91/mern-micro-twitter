@@ -116,11 +116,15 @@ router.put('/upload', (req, res) => {
 /** GET subscribes */
 router.get('/subscribes/:id', async (req, res) => {
   let result = [];
-  const user = await Member.findById(req.params.id, (err, user) => {
-    if (err) throw err;
-  });
+  if (req.params.id == "null") {
+    res.send("no user for null value");
+  } else {
+    const user = await Member.findById(req.params.id, (err, user) => {
+      if (err) throw err;
+    });
 
-  res.send(user.follow);
+    res.send(user.follow);
+  }
 });
 
 
