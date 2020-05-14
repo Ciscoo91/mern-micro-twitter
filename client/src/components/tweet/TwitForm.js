@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import TwitCard from './TwitCard';
-import { SubscribeContext } from '../../context/SubscribeContext';
+
 
 const TwitForm = ({ user }) => {
 
