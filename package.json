@@ -3,7 +3,7 @@
   "version": "12.14.1",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "build": "cd client && npm run build",
     "install-client": "cd client && npm install",
