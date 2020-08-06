@@ -25,8 +25,8 @@ app.use(fileUpload({
   createParentPath: true
 }));
 
-// mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWORD}@cluster0-ikd7i.gcp.mongodb.net/test?retryWrites=true&w=majority/mern-twitter`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds343718.mlab.com:43718/mern-twitter`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+// mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWORD}@heroku-4tbdk673.ikd7i.mongodb.net/heroku_4tbdk673?retryWrites=true&w=majority/mern-twitter`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost:27042/test`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => {
     console.log("Connected..")
   }).catch(err => {
@@ -63,9 +63,9 @@ app.use(function (err, req, res, next) {
 
 // Redirect all the routes to client/build/index.html
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(express.static(path.resolve(__dirname, 'client/build')));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, './client/build/index.html'));
+    res.sendFile(path.resolve(__dirname, './client/build/index.html'));
   });
 
   app.listen(process.env.PORT, () => {
