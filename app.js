@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
@@ -21,9 +20,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(fileUpload({
-  createParentPath: true
-}));
+
 
 // mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWORD}@heroku-4tbdk673.ikd7i.mongodb.net/heroku_4tbdk673?retryWrites=true&w=majority/mern-twitter`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
 mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost:27042/test`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
