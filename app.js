@@ -22,13 +22,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
-// mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWORD}@heroku-4tbdk673.ikd7i.mongodb.net/heroku_4tbdk673?retryWrites=true&w=majority/mern-twitter`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
-mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost:27042/test`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWORD}@microbloggos.p22fo.mongodb.net/microbloggos?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => {
-    console.log("Connected..")
-  }).catch(err => {
-    console.log('Caught: ', err.stack)
+    console.log("Connection successful")
+  }).catch(e => {
+    console.log(e)
   });
+// mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost:27042/test`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+//   .then(() => {
+//     console.log("Connected..")
+//   }).catch(err => {
+//     console.log('Caught: ', err.stack)
+//   });
 
 // cors handler
 app.use(function (req, res, next) {
