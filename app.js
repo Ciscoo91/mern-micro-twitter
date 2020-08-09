@@ -65,7 +65,14 @@ app.use(function (err, req, res, next) {
 
 // Redirect all the routes to client/build/index.html
 if (process.env.NODE_ENV === "production") {
-  app.set("view engine", "html");
+
+  mongoose.connect(`${process.env.MONGODB_URI}`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+    .then(() => {
+      console.log("Connection successful")
+    }).catch(e => {
+      console.log(e)
+    });
+
   app.use(express.static(path.resolve(__dirname, 'client/build')));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, './client/build/index.html'));
