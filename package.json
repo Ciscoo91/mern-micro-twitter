@@ -2,6 +2,10 @@
   "name": "react",
   "version": "12.14.1",
   "main": "app.js",
+  "engines": {
+    "node": "12.14.1",
+    "npm": "6.14.2"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
