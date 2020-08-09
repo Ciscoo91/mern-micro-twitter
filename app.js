@@ -65,6 +65,7 @@ app.use(function (err, req, res, next) {
 
 // Redirect all the routes to client/build/index.html
 if (process.env.NODE_ENV === "production") {
+  app.set("view engine", "html");
   app.use(express.static(path.resolve(__dirname, 'client/build')));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, './client/build/index.html'));
