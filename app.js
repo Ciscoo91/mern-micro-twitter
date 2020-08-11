@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
-mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWORD}@microbloggos.p22fo.mongodb.net/microbloggos?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWORD}@microbloggos.p22fo.mongodb.net/microbloggos?retryWrites=true&w=majority` || `mongodb://localhost:27042/test`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => {
     console.log("Connection successful")
   }).catch(e => {
@@ -65,13 +65,6 @@ app.use(function (err, req, res, next) {
 
 // Redirect all the routes to client/build/index.html
 if (process.env.NODE_ENV === "production") {
-
-  mongoose.connect(`${process.env.MONGODB_URI}`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
-    .then(() => {
-      console.log("Connection successful")
-    }).catch(e => {
-      console.log(e)
-    });
 
   app.use(express.static(path.resolve(__dirname, 'client/build')));
   app.get("*", (req, res) => {
