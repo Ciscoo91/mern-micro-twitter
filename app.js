@@ -60,7 +60,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json('error');
 });
 
 // Redirect all the routes to client/build/index.html
@@ -75,7 +75,7 @@ if (process.env.NODE_ENV === "production") {
 
   app.use(express.static(path.resolve(__dirname, 'client/build')));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
   });
 
   app.listen(process.env.PORT, () => {
