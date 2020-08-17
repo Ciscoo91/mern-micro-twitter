@@ -62,13 +62,12 @@ router.post("/login", (req, res) => {
   }, (err, user) => {
     if (err) throw err;
 
-    let loggedUser = bcrypt.compareSync(password, user[0].password)
+    let loggedUser = bcrypt.compareSync(password, user.password)
     if (loggedUser) {
-      // res.send(user)
-      const username = user[0].username;
-      const email = user[0].email;
-      const id = user[0]._id;
-      const subscribes = user[0].follow;
+      // res.send(user     const username = user.username;
+      const email = user.email;
+      const id = user._id;
+      const subscribes = user.follow;
       jwt.sign({ id, username, email }, secretKey, (err, token) => {
         if (err) throw err;
 
