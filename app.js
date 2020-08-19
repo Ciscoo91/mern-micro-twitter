@@ -28,12 +28,6 @@ mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWOR
   }).catch(e => {
     console.log(e)
   });
-// mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost:27042/test`, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
-//   .then(() => {
-//     console.log("Connected..")
-//   }).catch(err => {
-//     console.log('Caught: ', err.stack)
-//   });
 
 // cors handler
 app.use(function (req, res, next) {
@@ -74,7 +68,6 @@ if (process.env.NODE_ENV === "production") {
 
   app.listen(process.env.PORT, () => {
     console.log("Runnig in production server");
-    console.log(process.env.NODE_ENV);
   })
 
 }

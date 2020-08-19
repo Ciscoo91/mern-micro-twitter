@@ -20,7 +20,6 @@ const RegisgertUser = () => {
             password_confirm: passwordConfirm,
             email: email,
         }).then((response) => {
-            console.log(response);
             history.push('/login')
         }).catch((error) => {
             console.log(error);

@@ -34,7 +34,7 @@ const Avatar = ({ id }) => {
             image_url: imageUrl,
         });
         // const JsonResponse = await response.json();
-        console.log(response, typeof response);
+        // console.log(response, typeof response);
     }
 
     const handleUpload = (e) => {
@@ -57,7 +57,7 @@ const Avatar = ({ id }) => {
                     .child(image.name)
                     .getDownloadURL()
                     .then(url => {
-                        console.log(url)
+                        // console.log(url)
                         setImageUrl(url);
                         setProgress(0);
                     })

@@ -19,7 +19,7 @@ function Subscription() {
         const id = getIdOfCurrentUser();
         const response = await fetch(`/users/subscribes/${id}`);
         const resJson = await response.json();
-        console.log(resJson);
+        // console.log(resJson);
         resJson.map(userId => getInfo(userId))
     }
 

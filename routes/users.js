@@ -54,14 +54,17 @@ router.post('/register', function (req, res, next) {
 /** Login to the app */
 router.post("/login", (req, res) => {
 
-  let login = req.body.username;
+  let username = req.body.username;
   let password = req.body.password;
 
-  Member.find({
-    username: login
+  console.log(req.body);
+
+  Member.findOne({
+    username
   }, (err, user) => {
     if (err) throw err;
 
+    console.log("user: ", user, "password:", password)
     let loggedUser = bcrypt.compareSync(password, user.password)
     if (loggedUser) {
       // res.send(user     const username = user.username;
