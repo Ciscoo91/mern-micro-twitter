@@ -64,7 +64,7 @@ router.post("/login", (req, res) => {
   }, (err, user) => {
     if (err) throw err;
 
-    console.log("user: ", user, "password:", password)
+    // console.log("user: ", user, "password:", password)
     let loggedUser = bcrypt.compareSync(password, user.password)
     if (loggedUser) {
       // res.send(user     const username = user.username;

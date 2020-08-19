@@ -16,18 +16,4 @@ const verifyToken = (req, res, next) => {
     }
 }
 
-// const verifyToken = (req, res, next) => {
-//     const token = req.headers('Authorization').split(' ')[1];
-//     // Check if bearer is undefined
-//     if (!token) res.status(401).json({ msg: "No token authorization denied" })
-
-//     try {
-//         let decoded = jwt.verify(token, jwtSecret);
-//         req.user = decoded;
-//         next();
-//     } catch (e) {
-//         res.status(400).json({ msg: 'token is not valid' })
-//     }
-// }
-
 module.exports = verifyToken;
