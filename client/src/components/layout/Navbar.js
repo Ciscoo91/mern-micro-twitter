@@ -12,15 +12,15 @@ const Navbar = () => {
                 aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
-            <Link className="navbar-brand" to="/">MERN Micro Twitter</Link>
+            <Link className="navbar-brand" to="/">Microbloggos</Link>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                    {user.isLoggedIn && (<Link className="nav-link text-info" to="/users">Users</Link>)}
-                    {user.isLoggedIn && (<Link className="nav-link text-info" to="/feed">Feed</Link>)}
-                    {user.isLoggedIn && (<Link className="nav-link text-info" to={`/profile/${user.data.user.id}`}>Profile</Link>)}
-                    {!user.isLoggedIn && (<Link className="nav-link text-info" to="/register">Register</Link>)}
-                    {user.isLoggedIn && (<span className="nav-link text-info" onClick={() => logOut()}>Logout</span>)}
-                    {!user.isLoggedIn && (<Link className="nav-link text-info" to="/login">Login</Link>)}
+                <ul className="navbar-nav mr-auto mt-2 mt-lg-0 d-flex flex-row justify-content-end">
+                    {user.isLoggedIn && (<Link className="nav-link text-light" to="/users">Users</Link>)}
+                    {user.isLoggedIn && (<Link className="nav-link text-light" to="/feed">Feed</Link>)}
+                    {user.isLoggedIn && (<Link className="nav-link text-light" to={`/profile/${user.data.user.id}`}>Profile</Link>)}
+                    {!user.isLoggedIn && (<Link className="nav-link text-light" to="/register">Register</Link>)}
+                    {user.isLoggedIn && (<span className="nav-link text-light" onClick={() => logOut()}>Logout</span>)}
+                    {!user.isLoggedIn && (<Link className="nav-link text-light" to="/login">Login</Link>)}
                 </ul>
             </div>
         </nav>

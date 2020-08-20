@@ -14,7 +14,7 @@ const Avatar = ({ id }) => {
     const handleChange = (e) => {
 
         const file = e.target.files[0];
-        console.log(file);
+        // console.log(file);
         if (file) {
             const fileType = file.type;
             const validTypes = ["image/jpg", "image/jpeg", "image/png", "image/gif"]
